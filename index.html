@@ -1,33 +1,281 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>ou的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ou的个人博客</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .post { border-bottom: 1px solid #eee; padding: 15px 0; }
-        .post h2 { margin: 0; }
-        .post .date { color: #999; font-size: 14px; }
-        nav a { margin-right: 15px; text-decoration: none; color: #0366d6; }
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            color: #2d3436;
+            line-height: 1.7;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .navbar {
+            background: #ffffff;
+            padding: 18px 0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3436;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #0984e3;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #636e72;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #0984e3;
+        }
+
+        /* ===== 英雄区（个人简介） ===== */
+        .hero {
+            text-align: center;
+            padding: 60px 24px 50px;
+            background: linear-gradient(135deg, #dfe6e9 0%, #ffffff 100%);
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #0984e3;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            color: #fff;
+            box-shadow: 0 8px 28px rgba(9, 132, 227, 0.25);
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: #636e72;
+            font-size: 17px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ===== 博客列表 ===== */
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 20px 24px 60px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title span {
+            font-size: 22px;
+        }
+
+        /* ---- 文章卡片 ---- */
+        .post-card {
+            background: #ffffff;
+            padding: 24px 28px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #0984e3;
+        }
+
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .post-card .post-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .post-card .post-title a {
+            color: #2d3436;
+            text-decoration: none;
+        }
+
+        .post-card .post-title a:hover {
+            color: #0984e3;
+        }
+
+        .post-card .post-meta {
+            font-size: 14px;
+            color: #b2bec3;
+            margin-bottom: 10px;
+        }
+
+        .post-card .post-excerpt {
+            color: #636e72;
+            font-size: 15px;
+        }
+
+        .post-card .read-more {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #0984e3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .post-card .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            text-align: center;
+            padding: 30px 24px;
+            color: #b2bec3;
+            font-size: 14px;
+            border-top: 1px solid #e9ecef;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 600px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-links {
+                gap: 18px;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .post-card {
+                padding: 18px 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="/">首页</a>
-        <a href="/about.html">关于</a>
+
+    <!-- ========== 导航栏 ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">My<span>Blog</span></a>
+            <ul class="nav-links">
+                <li><a href="/">首页</a></li>
+                <li><a href="/about.html">关于</a></li>
+            </ul>
+        </div>
     </nav>
-    <h1> ou的博客</h1>
-    
-    <div class="post">
-        <h2><a href="/posts/2026-08-12.html">我的第一篇博客</a></h2>
-        <div class="date">2026年8月12日</div>
-        <p>这里是文章摘要...</p>
+
+    <!-- ========== 英雄区 ========== -->
+    <section class="hero">
+        <div class="avatar">👨‍💻</div>
+        <h1>你好，我是ou</h1>
+        <p>用代码记录思考 · 用文字分享生活</p>
+    </section>
+
+    <!-- ========== 博客列表 ========== -->
+    <div class="container">
+        <div class="section-title">
+            <span>📖</span> 最新文章
+        </div>
+
+        <!-- 文章卡片 1 -->
+        <article class="post-card">
+            <h2 class="post-title">
+                <a href="/posts/2026-08-12-第一篇博客.html">我的第一篇博客</a>
+            </h2>
+            <div class="post-meta">📅 2026年8月12日</div>
+            <p class="post-excerpt">
+                欢迎来到我的博客！这篇文章记录了我搭建这个网站的过程，以及为什么要开始写博客...
+            </p>
+            <a href="/posts/2026-08-12-第一篇博客.html" class="read-more">阅读全文 →</a>
+        </article>
+
+        <!-- 文章卡片 2 -->
+        <article class="post-card">
+            <h2 class="post-title">
+                <a href="/posts/2026-08-10-第二篇博客.html">GitHub Pages 搭建指南</a>
+            </h2>
+            <div class="post-meta">📅 2026年8月10日</div>
+            <p class="post-excerpt">
+                从零开始，手把手教你用 GitHub Pages 搭建一个完全免费的个人博客网站...
+            </p>
+            <a href="/posts/2026-08-10-第二篇博客.html" class="read-more">阅读全文 →</a>
+        </article>
+
+        <!-- 文章卡片 3（示例占位） -->
+        <article class="post-card">
+            <h2 class="post-title">
+                <a href="/posts/2026-08-08-第三篇博客.html">前端学习路线分享</a>
+            </h2>
+            <div class="post-meta">📅 2026年8月8日</div>
+            <p class="post-excerpt">
+                分享我的经验和学习心得，希望能给同样在路上的你一些帮助...
+            </p>
+            <a href="/posts/2026-08-08-第三篇博客.html" class="read-more">阅读全文 →</a>
+        </article>
+
     </div>
-    
-    <div class="post">
-        <h2><a href="/posts/2026-08-10.html">第二篇文章标题</a></h2>
-        <div class="date">2026年8月10日</div>
-        <p>这里是文章摘要...</p>
-    </div>
+
+    <!-- ========== 页脚 ========== -->
+    <footer class="footer">
+        © 2026 ou · 用 ❤️ 和 GitHub Pages 搭建
+    </footer>
+
 </body>
 </html>
