@@ -75,19 +75,16 @@
             margin-bottom: 10px;
         }
 
-        .avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: #0984e3;
-            margin: 0 auto 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 44px;
-            color: #fff;
-            box-shadow: 0 8px 28px rgba(9, 132, 227, 0.25);
-        }
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;          /* 图片裁剪方式，保证不变形 */
+    margin: 0 auto 18px;
+    display: block;
+    box-shadow: 0 8px 28px rgba(9, 132, 227, 0.25);
+    border: 3px solid #fff;     /* 加一圈白边，更好看 */
+}
 
         .hero h1 {
             font-size: 30px;
