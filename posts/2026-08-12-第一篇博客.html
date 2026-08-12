@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一篇博客</title>
+    <style>
+        /* 复制首页同样的样式，也可以单独提取到 css/style.css */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            color: #2d3436;
+            line-height: 1.8;
+        }
+
+        .navbar {
+            background: #ffffff;
+            padding: 18px 0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3436;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #0984e3;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #636e72;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #0984e3;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .post-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 20px;
+        }
+
+        .post-header h1 {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .post-header .date {
+            color: #b2bec3;
+            font-size: 15px;
+        }
+
+        .post-content h2 {
+            font-size: 22px;
+            margin: 30px 0 12px;
+            color: #2d3436;
+        }
+
+        .post-content h3 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: #2d3436;
+        }
+
+        .post-content p {
+            margin-bottom: 16px;
+            color: #444;
+        }
+
+        .post-content ul,
+        .post-content ol {
+            margin: 10px 0 16px 24px;
+        }
+
+        .post-content li {
+            margin-bottom: 6px;
+        }
+
+        .post-content code {
+            background: #f0f2f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .post-content pre {
+            background: #1e272e;
+            color: #e9ecef;
+            padding: 16px 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        .post-content pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #0984e3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 24px;
+            color: #b2bec3;
+            font-size: 14px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-links {
+                gap: 18px;
+            }
+            .post-header h1 {
+                font-size: 24px;
+            }
+            .container {
+                padding: 24px 18px;
+                margin-top: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">My<span>Blog</span></a>
+            <ul class="nav-links">
+                <li><a href="/">首页</a></li>
+                <li><a href="/about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 文章正文 -->
+    <div class="container">
+        <div class="post-header">
+            <h1>我的第一篇博客</h1>
+            <div class="date">📅 2026年8月12日</div>
+        </div>
+
+        <div class="post-content">
+            <p>终于搭建好了自己的个人博客！🎉</p>
+
+            <p>从今天开始，我会在这里记录我的学习、思考和生活。</p>
+
+            <h2>为什么要写博客？</h2>
+            <p>写博客有以下几个好处：</p>
+            <ul>
+                <li><strong>加深理解</strong>：把学到的知识用自己的话讲出来，印象更深刻</li>
+                <li><strong>建立个人品牌</strong>：让别人通过你的文章认识你</li>
+                <li><strong>记录成长</strong>：回头看看自己写过的内容，能感受到自己的进步</li>
+            </ul>
+
+            <h2>这个网站是怎么搭的？</h2>
+            <p>用 GitHub Pages 搭建，完全免费，代码托管在 GitHub 上。</p>
+            <p>如果你想搭建一个类似的博客，可以参考我后续的文章。</p>
+
+            <h2>未来计划</h2>
+            <ul>
+                <li>每周至少更新一篇文章</li>
+                <li>分享技术学习笔记</li>
+                <li>记录生活感悟</li>
+            </ul>
+
+            <p>谢谢你的阅读，我们下篇文章见！</p>
+        </div>
+
+        <a href="/" class="back-link">← 返回首页</a>
+    </div>
+
+    <footer class="footer">
+        © 2026 你的名字 · 用 ❤️ 和 GitHub Pages 搭建
+    </footer>
+
+</body>
+</html>
