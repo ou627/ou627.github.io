@@ -77,35 +77,37 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
         }
 
-.about-header {
-    text-align: center;
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 2px solid #f0f2f5;
-}
+        /* ===== 头部（头像 + 标题 + 副标题）居中 ===== */
+        .about-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #f0f2f5;
+        }
 
-.about-header .avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto 14px;
-    display: block;           /* 关键：让图片变成块级元素，配合 margin 居中 */
-    box-shadow: 0 8px 28px rgba(9, 132, 227, 0.2);
-    border: 3px solid #fff;
-}
+        .about-header .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 14px;
+            display: block;
+            box-shadow: 0 8px 28px rgba(9, 132, 227, 0.2);
+            border: 3px solid #fff;
+        }
 
-.about-header h1 {
-    font-size: 28px;
-    font-weight: 700;
-}
+        .about-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
 
-.about-header .subtitle {
-    color: #636e72;
-    font-size: 16px;
-    margin-top: 4px;
-}
+        .about-header .subtitle {
+            color: #636e72;
+            font-size: 16px;
+            margin-top: 4px;
+        }
 
+        /* ===== 内容区块 ===== */
         .about-section {
             margin-bottom: 28px;
         }
@@ -232,11 +234,12 @@
     <!-- ========== 关于内容 ========== -->
     <div class="container">
 
-<section class="hero">
-    <img src="/headpicture2.jpg" alt="玄心的头像" class="avatar">
-    <h1>你好，我是玄心</h1>
-    <p>生活是海 · 妙笔作舟</p>
-</section>
+        <!-- 头部：头像 + 标题 + 副标题，全部居中 -->
+        <div class="about-header">
+            <img src="/headpicture2.jpg" alt="玄心的头像" class="avatar">
+            <h1>你好，我是玄心</h1>
+            <div class="subtitle">生活是海 · 妙笔作舟</div>
+        </div>
 
         <!-- 自我介绍 -->
         <div class="about-section">
@@ -276,8 +279,6 @@
             <div class="social-links">
                 <a href="https://github.com/ou627" target="_blank">GitHub</a>
                 <a href="mailto:111111111@qq.com">Email</a>
-                <!-- 如果想加更多，复制下面这行改一下 -->
-                <!-- <a href="你的链接" target="_blank">🔗 平台名称</a> -->
             </div>
         </div>
 
