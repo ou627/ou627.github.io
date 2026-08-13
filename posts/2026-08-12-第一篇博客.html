@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的第一篇博客</title>
     <style>
-        /* 复制首页同样的样式，也可以单独提取到 css/style.css */
+        /* ===== 全局重置 & 字体 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -19,6 +19,7 @@
             line-height: 1.8;
         }
 
+        /* ===== 顶部导航 ===== */
         .navbar {
             background: #ffffff;
             padding: 18px 0;
@@ -66,15 +67,14 @@
             color: #0984e3;
         }
 
+        /* ===== 文章主体 ===== */
         .container {
             max-width: 820px;
-            margin: 0 auto;
-            padding: 40px 24px 60px;
+            margin: 30px auto;
+            padding: 40px 48px 50px;
             background: #ffffff;
             border-radius: 14px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-            margin-top: 30px;
-            margin-bottom: 30px;
         }
 
         .post-header {
@@ -94,6 +94,102 @@
             font-size: 15px;
         }
 
+        /* ===== 文章统计（浏览次数 + 点赞数） ===== */
+        .post-stats {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .post-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #636e72;
+            font-size: 14px;
+        }
+
+        .post-stats .stat-item .icon {
+            font-size: 18px;
+        }
+
+        /* ===== 点赞按钮 ===== */
+        .like-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 20px 0 10px;
+            padding: 14px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .like-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 28px;
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-radius: 30px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: #2d3436;
+            user-select: none;
+        }
+
+        .like-btn:hover {
+            border-color: #0984e3;
+            background: #f0f7ff;
+            transform: scale(1.02);
+        }
+
+        .like-btn.liked {
+            border-color: #0984e3;
+            background: #0984e3;
+            color: #ffffff;
+        }
+
+        .like-btn.liked:hover {
+            background: #0873c7;
+        }
+
+        .like-btn .heart {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .like-btn.liked .heart {
+            animation: heartBeat 0.4s ease;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(0.9); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .like-btn .like-num {
+            min-width: 20px;
+        }
+
+        .like-btn.liked .like-num {
+            color: #ffffff;
+        }
+
+        .like-hint {
+            color: #b2bec3;
+            font-size: 14px;
+        }
+
+        /* ===== 文章内容 ===== */
         .post-content h2 {
             font-size: 22px;
             margin: 30px 0 12px;
@@ -142,6 +238,29 @@
             color: inherit;
         }
 
+        /* ===== 评论区 ===== */
+        .comment-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .comment-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comment-section .comment-hint {
+            color: #b2bec3;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* ===== 返回链接 ===== */
         .back-link {
             display: inline-block;
             margin-top: 30px;
@@ -154,6 +273,7 @@
             text-decoration: underline;
         }
 
+        /* ===== 页脚 ===== */
         .footer {
             text-align: center;
             padding: 30px 24px;
@@ -163,6 +283,7 @@
             margin: 0 auto;
         }
 
+        /* ===== 响应式 ===== */
         @media (max-width: 600px) {
             .nav-container {
                 flex-direction: column;
@@ -178,15 +299,26 @@
                 padding: 24px 18px;
                 margin-top: 16px;
             }
+            .post-stats {
+                gap: 16px;
+                font-size: 13px;
+            }
+            .like-btn {
+                padding: 8px 20px;
+                font-size: 15px;
+            }
+            .like-section {
+                padding: 12px 16px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 导航栏 -->
+    <!-- ========== 导航栏 ========== -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="logo">My<span>Blog</span></a>
+            <a href="/" class="logo">玄<span>心</span></a>
             <ul class="nav-links">
                 <li><a href="/">首页</a></li>
                 <li><a href="/about.html">关于</a></li>
@@ -194,13 +326,37 @@
         </div>
     </nav>
 
-    <!-- 文章正文 -->
+    <!-- ========== 文章正文 ========== -->
     <div class="container">
+
         <div class="post-header">
             <h1>我的第一篇博客</h1>
             <div class="date">📅 2026年8月12日</div>
+
+            <!-- 浏览次数 + 点赞数 -->
+            <div class="post-stats">
+                <span class="stat-item">
+                    <span class="icon">👁️</span>
+                    <span>阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
+                </span>
+                <span class="stat-item">
+                    <span class="icon">❤️</span>
+                    <span>获得 <span id="likeCountDisplay">0</span> 个赞</span>
+                </span>
+            </div>
         </div>
 
+        <!-- ===== 点赞区域 ===== -->
+        <div class="like-section">
+            <button class="like-btn" id="likeBtn" onclick="toggleLike()">
+                <span class="heart">❤️</span>
+                <span>点赞</span>
+                <span class="like-num" id="likeCount">0</span>
+            </button>
+            <span class="like-hint">觉得不错就点个赞吧 👍</span>
+        </div>
+
+        <!-- ===== 文章内容 ===== -->
         <div class="post-content">
             <p>终于搭建好了自己的个人博客！🎉</p>
 
@@ -229,11 +385,95 @@
         </div>
 
         <a href="/" class="back-link">← 返回首页</a>
+
+        <!-- ===== 评论区 ===== -->
+        <div class="comment-section">
+            <h3>💬 发表评论</h3>
+            <p class="comment-hint">使用 GitHub 账号登录后即可留言交流~</p>
+
+            <script src="https://giscus.app/client.js"
+                    data-repo="ou627/ou627.github.io"
+                    data-repo-id="R_kgDOT2FJJQ"
+                    data-category="Announcements"
+                    data-category-id="DIC_kwDOT2FJJc4DDQod"
+                    data-mapping="pathname"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        </div>
+
     </div>
 
+    <!-- ========== 页脚 ========== -->
     <footer class="footer">
-        © 2026 你的名字 · 用 ❤️ 和 GitHub Pages 搭建
+        © 2026 玄心 · 用 ❤️ 和 GitHub Pages 搭建
     </footer>
+
+    <!-- ============================================ -->
+    <!-- 1. 不蒜子：浏览次数统计（免费，无需注册）      -->
+    <!-- ============================================ -->
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+
+    <!-- ============================================ -->
+    <!-- 2. 点赞功能（使用 localStorage 记录）          -->
+    <!-- ============================================ -->
+    <script>
+        // 每篇文章使用不同的 key（根据 URL 区分）
+        var pageKey = 'like_' + window.location.pathname.replace(/\//g, '_');
+        var likeCountKey = 'likeCount_' + window.location.pathname.replace(/\//g, '_');
+
+        // 从 localStorage 读取点赞数
+        var likeCount = parseInt(localStorage.getItem(likeCountKey)) || 0;
+        var isLiked = localStorage.getItem(pageKey) === 'true';
+
+        // 更新 UI
+        function updateLikeUI() {
+            document.getElementById('likeCount').textContent = likeCount;
+            document.getElementById('likeCountDisplay').textContent = likeCount;
+            var btn = document.getElementById('likeBtn');
+            if (isLiked) {
+                btn.classList.add('liked');
+                btn.querySelector('span:nth-child(2)').textContent = '已赞';
+            } else {
+                btn.classList.remove('liked');
+                btn.querySelector('span:nth-child(2)').textContent = '点赞';
+            }
+        }
+
+        // 点赞/取消点赞
+        function toggleLike() {
+            if (isLiked) {
+                likeCount--;
+                isLiked = false;
+                localStorage.removeItem(pageKey);
+            } else {
+                likeCount++;
+                isLiked = true;
+                localStorage.setItem(pageKey, 'true');
+            }
+            localStorage.setItem(likeCountKey, String(likeCount));
+            updateLikeUI();
+        }
+
+        // 初始化
+        updateLikeUI();
+
+        // 不蒜子加载完成后，自动更新浏览量
+        setTimeout(function() {
+            var pvEl = document.getElementById('busuanzi_value_page_pv');
+            if (pvEl && pvEl.textContent === '') {
+                pvEl.textContent = '0';
+            }
+        }, 5000);
+    </script>
 
 </body>
 </html>
