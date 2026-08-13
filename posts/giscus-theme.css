@@ -1,0 +1,62 @@
+/* ===== Giscus 自定义主题 ===== */
+/* 匹配网页风格：白底、蓝色主色调(#0984e3)、灰色文字(#636e72) */
+
+/* 主容器 */
+.giscus {
+    --color-bg: #ffffff;
+    --color-text: #2d3436;
+    --color-text-secondary: #636e72;
+    --color-text-tertiary: #b2bec3;
+
+    /* 边框和分割线 */
+    --color-border: #e9ecef;
+    --color-border-secondary: #f0f2f5;
+
+    /* 按钮 */
+    --color-btn-bg: #f8f9fa;
+    --color-btn-border: #e9ecef;
+    --color-btn-text: #2d3436;
+    --color-btn-hover-bg: #f0f7ff;
+    --color-btn-hover-border: #0984e3;
+
+    /* 主色调（蓝色） */
+    --color-primary: #0984e3;
+    --color-primary-hover: #0873c7;
+    --color-primary-bg: #f0f7ff;
+    --color-primary-border: #0984e3;
+
+    /* 输入框 */
+    --color-input-bg: #ffffff;
+    --color-input-border: #e9ecef;
+    --color-input-focus-border: #0984e3;
+
+    /* 头像边框 */
+    --color-avatar-border: #f0f2f5;
+
+    /* 阴影 */
+    --color-shadow: rgba(0, 0, 0, 0.04);
+
+    /* 链接 */
+    --color-link: #0984e3;
+    --color-link-hover: #0873c7;
+
+    /* 反应按钮 */
+    --color-reaction-bg: #f8f9fa;
+    --color-reaction-hover-bg: #f0f7ff;
+    --color-reaction-active-bg: #e3f0fd;
+
+    /* 赞数 */
+    --color-like-count: #636e72;
+
+    /* 警告/提示 */
+    --color-danger: #e74c3c;
+    --color-danger-hover: #c0392b;
+
+    /* 工具提示 */
+    --color-tooltip-bg: #2d3436;
+    --color-tooltip-text: #ffffff;
+
+    /* 禁用状态 */
+    --color-disabled-bg: #f5f7fa;
+    --color-disabled-text: #b2bec3;
+}
