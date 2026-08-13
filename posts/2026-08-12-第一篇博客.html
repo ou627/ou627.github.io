@@ -426,53 +426,58 @@
     <!-- 2. 点赞功能（使用 localStorage 记录）          -->
     <!-- ============================================ -->
     <script>
-        // 每篇文章使用不同的 key（根据 URL 区分）
-        var pageKey = 'like_' + window.location.pathname.replace(/\//g, '_');
-        var likeCountKey = 'likeCount_' + window.location.pathname.replace(/\//g, '_');
+        (function() {
+            // 每篇文章使用不同的 key（根据 URL 区分）
+            var pageKey = 'like_' + window.location.pathname.replace(/\//g, '_');
+            var likeCountKey = 'likeCount_' + window.location.pathname.replace(/\//g, '_');
 
-        // 从 localStorage 读取点赞数
-        var likeCount = parseInt(localStorage.getItem(likeCountKey)) || 0;
-        var isLiked = localStorage.getItem(pageKey) === 'true';
+            // 从 localStorage 读取点赞数，如果没有则初始为 0
+            var likeCount = parseInt(localStorage.getItem(likeCountKey)) || 0;
+            var isLiked = localStorage.getItem(pageKey) === 'true';
 
-        // 更新 UI
-        function updateLikeUI() {
-            document.getElementById('likeCount').textContent = likeCount;
-            document.getElementById('likeCountDisplay').textContent = likeCount;
-            var btn = document.getElementById('likeBtn');
-            if (isLiked) {
-                btn.classList.add('liked');
-                btn.querySelector('span:nth-child(2)').textContent = '已赞';
-            } else {
-                btn.classList.remove('liked');
-                btn.querySelector('span:nth-child(2)').textContent = '点赞';
+            // 更新 UI
+            function updateLikeUI() {
+                document.getElementById('likeCount').textContent = likeCount;
+                document.getElementById('likeCountDisplay').textContent = likeCount;
+                var btn = document.getElementById('likeBtn');
+                if (isLiked) {
+                    btn.classList.add('liked');
+                    btn.querySelector('span:nth-child(2)').textContent = '已赞';
+                } else {
+                    btn.classList.remove('liked');
+                    btn.querySelector('span:nth-child(2)').textContent = '点赞';
+                }
             }
-        }
 
-        // 点赞/取消点赞
-        function toggleLike() {
-            if (isLiked) {
-                likeCount--;
-                isLiked = false;
-                localStorage.removeItem(pageKey);
-            } else {
-                likeCount++;
-                isLiked = true;
-                localStorage.setItem(pageKey, 'true');
-            }
-            localStorage.setItem(likeCountKey, String(likeCount));
+            // 点赞/取消点赞
+            window.toggleLike = function() {
+                if (isLiked) {
+                    // 取消点赞
+                    likeCount--;
+                    isLiked = false;
+                    localStorage.removeItem(pageKey);
+                } else {
+                    // 点赞
+                    likeCount++;
+                    isLiked = true;
+                    localStorage.setItem(pageKey, 'true');
+                }
+                // 保存点赞数到 localStorage
+                localStorage.setItem(likeCountKey, String(likeCount));
+                updateLikeUI();
+            };
+
+            // 初始化
             updateLikeUI();
-        }
 
-        // 初始化
-        updateLikeUI();
-
-        // 不蒜子加载完成后，自动更新浏览量
-        setTimeout(function() {
-            var pvEl = document.getElementById('busuanzi_value_page_pv');
-            if (pvEl && pvEl.textContent === '') {
-                pvEl.textContent = '0';
-            }
-        }, 5000);
+            // 不蒜子加载完成后，自动更新浏览量
+            setTimeout(function() {
+                var pvEl = document.getElementById('busuanzi_value_page_pv');
+                if (pvEl && pvEl.textContent === '') {
+                    pvEl.textContent = '0';
+                }
+            }, 5000);
+        })();
     </script>
 
 </body>
