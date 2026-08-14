@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源分享 - 玄心的博客</title>
+    <!-- ===== 字体：霞鹜文楷 ===== -->
+    <link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" rel="stylesheet">
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            color: #2d3436;
+            line-height: 1.8;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 0;
+            box-shadow: 0 1px 24px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3436;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: #0984e3;
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #636e72;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0984e3;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0984e3;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== 页面主体 ===== */
+        .container {
+            max-width: 820px;
+            margin: 30px auto;
+            padding: 44px 52px 52px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        /* ===== 页面头部 ===== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 36px;
+            padding-bottom: 28px;
+            border-bottom: 2px solid #f0f2f5;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .page-header h1 .highlight {
+            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header .subtitle {
+            color: #636e72;
+            font-size: 17px;
+            margin-top: 4px;
+            letter-spacing: 3px;
+        }
+
+        /* ===== 资源分类 ===== */
+        .category {
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .category:nth-child(1) { animation-delay: 0.08s; }
+        .category:nth-child(2) { animation-delay: 0.16s; }
+        .category:nth-child(3) { animation-delay: 0.24s; }
+        .category:nth-child(4) { animation-delay: 0.32s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category h2 {
+            font-size: 19px;
+            font-weight: 600;
+            color: #0984e3;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 1px;
+        }
+
+        .category h2 .cat-icon {
+            font-size: 22px;
+        }
+
+        /* ===== 资源卡片列表 ===== */
+        .resource-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .resource-item:hover {
+            background: #f0f7ff;
+            border-color: rgba(9, 132, 227, 0.15);
+            transform: translateX(4px);
+        }
+
+        .resource-item .info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .resource-item .info .icon {
+            font-size: 22px;
+            width: 36px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .resource-item .info .name {
+            font-weight: 500;
+            color: #2d3436;
+            font-size: 16px;
+        }
+
+        .resource-item .info .desc {
+            color: #b2bec3;
+            font-size: 14px;
+            margin-left: 4px;
+        }
+
+        .resource-item .link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 18px;
+            background: #0984e3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .resource-item .link:hover {
+            background: #0873c7;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(9, 132, 227, 0.25);
+        }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            text-align: center;
+            padding: 32px 24px 40px;
+            color: #b2bec3;
+            font-size: 14px;
+            border-top: 1px solid #e9ecef;
+            max-width: 820px;
+            margin: 0 auto;
+            letter-spacing: 4px;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 600px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-links {
+                gap: 20px;
+            }
+            .container {
+                padding: 24px 18px 32px;
+                margin: 16px 12px;
+            }
+            .page-header h1 {
+                font-size: 24px;
+            }
+            .page-header .subtitle {
+                font-size: 15px;
+                letter-spacing: 2px;
+            }
+            .resource-item {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 16px 18px;
+            }
+            .resource-item .info .desc {
+                display: block;
+                margin-left: 0;
+            }
+            .resource-item .link {
+                align-self: flex-start;
+            }
+            .category {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ===== 暗色模式 ===== */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0d1117;
+                color: #e6edf3;
+            }
+
+            .navbar {
+                background: rgba(22, 27, 34, 0.9);
+                border-bottom-color: rgba(255, 255, 255, 0.04);
+            }
+
+            .logo {
+                color: #e6edf3;
+            }
+
+            .nav-links a {
+                color: #8b949e;
+            }
+
+            .container {
+                background: #161b22;
+                border-color: rgba(255, 255, 255, 0.04);
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .page-header {
+                border-bottom-color: #21262d;
+            }
+
+            .page-header .subtitle {
+                color: #8b949e;
+            }
+
+            .category h2 {
+                color: #58a6ff;
+            }
+
+            .resource-item {
+                background: #21262d;
+            }
+
+            .resource-item:hover {
+                background: #1c2333;
+                border-color: rgba(88, 166, 255, 0.15);
+            }
+
+            .resource-item .info .name {
+                color: #e6edf3;
+            }
+
+            .resource-item .info .desc {
+                color: #484f58;
+            }
+
+            .resource-item .link {
+                background: #58a6ff;
+                color: #0d1117;
+            }
+
+            .resource-item .link:hover {
+                background: #79c0ff;
+                box-shadow: 0 6px 20px rgba(88, 166, 255, 0.25);
+            }
+
+            .footer {
+                border-top-color: #21262d;
+                color: #484f58;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== 导航栏 ========== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">玄<span>心</span></a>
+            <ul class="nav-links">
+                <li><a href="/">首页</a></li>
+                <li><a href="/about.html">关于</a></li>
+                <li><a href="/resources.html" style="color:#0984e3;">资源分享</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ========== 页面内容 ========== -->
+    <div class="container">
+
+        <div class="page-header">
+            <h1>📦 <span class="highlight">资源分享</span></h1>
+            <div class="subtitle">收藏 · 整理 · 分享</div>
+        </div>
+
+        <!-- ===== 分类：学习资源 ===== -->
+        <div class="category">
+            <h2><span class="cat-icon">📚</span> 学习资源</h2>
+            <div class="resource-list">
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">📖</span>
+                        <span class="name">MDN Web 文档</span>
+                        <span class="desc">最权威的前端学习资源</span>
+                    </div>
+                    <a href="https://developer.mozilla.org/zh-CN/" target="_blank" class="link">访问 →</a>
+                </div>
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">🐍</span>
+                        <span class="name">Python 官方教程</span>
+                        <span class="desc">Python 入门必看</span>
+                    </div>
+                    <a href="https://docs.python.org/zh-cn/3/tutorial/" target="_blank" class="link">访问 →</a>
+                </div>
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">🎓</span>
+                        <span class="name">浙江大学课程资源</span>
+                        <span class="desc">校内学习资料汇总</span>
+                    </div>
+                    <a href="#" target="_blank" class="link">访问 →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 分类：工具推荐 ===== -->
+        <div class="category">
+            <h2><span class="cat-icon">🛠️</span> 工具推荐</h2>
+            <div class="resource-list">
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">💻</span>
+                        <span class="name">VS Code</span>
+                        <span class="desc">最好用的代码编辑器</span>
+                    </div>
+                    <a href="https://code.visualstudio.com/" target="_blank" class="link">访问 →</a>
+                </div>
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">🐙</span>
+                        <span class="name">GitHub</span>
+                        <span class="desc">代码托管与协作平台</span>
+                    </div>
+                    <a href="https://github.com/" target="_blank" class="link">访问 →</a>
+                </div>
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">📝</span>
+                        <span class="name">Typora</span>
+                        <span class="desc">优雅的 Markdown 编辑器</span>
+                    </div>
+                    <a href="https://typora.io/" target="_blank" class="link">访问 →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 分类：优质网站 ===== -->
+        <div class="category">
+            <h2><span class="cat-icon">🌐</span> 优质网站</h2>
+            <div class="resource-list">
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">🧠</span>
+                        <span class="name">知乎</span>
+                        <span class="desc">优质问答社区</span>
+                    </div>
+                    <a href="https://www.zhihu.com/" target="_blank" class="link">访问 →</a>
+                </div>
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">📡</span>
+                        <span class="name">阮一峰的网络日志</span>
+                        <span class="desc">技术博客推荐</span>
+                    </div>
+                    <a href="https://www.ruanyifeng.com/blog/" target="_blank" class="link">访问 →</a>
+                </div>
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">🎨</span>
+                        <span class="name">Dribbble</span>
+                        <span class="desc">设计灵感社区</span>
+                    </div>
+                    <a href="https://dribbble.com/" target="_blank" class="link">访问 →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 分类：影音书单 ===== -->
+        <div class="category">
+            <h2><span class="cat-icon">🎬</span> 影音书单</h2>
+            <div class="resource-list">
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">🎞️</span>
+                        <span class="name">豆瓣电影 Top 250</span>
+                        <span class="desc">经典影片清单</span>
+                    </div>
+                    <a href="https://movie.douban.com/top250" target="_blank" class="link">访问 →</a>
+                </div>
+                <div class="resource-item">
+                    <div class="info">
+                        <span class="icon">📚</span>
+                        <span class="name">微信读书</span>
+                        <span class="desc">海量电子书阅读</span>
+                    </div>
+                    <a href="https://weread.qq.com/" target="_blank" class="link">访问 →</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========== 页脚 ========== -->
+    <footer class="footer">
+        玄之又玄 · 眾妙之門
+    </footer>
+
+</body>
+</html>
