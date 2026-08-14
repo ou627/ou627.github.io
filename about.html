@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>关于我</title>
+    <!-- ===== 字体：霞鹜文楷 ===== -->
+    <link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" rel="stylesheet">
     <style>
         /* ===== 全局重置 & 字体 ===== */
         * {
@@ -12,8 +14,12 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-family: "LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", sans-serif;
             background: #f5f7fa;
             color: #2d3436;
             line-height: 1.8;
@@ -21,12 +27,15 @@
 
         /* ===== 顶部导航 ===== */
         .navbar {
-            background: #ffffff;
-            padding: 18px 0;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 0;
+            box-shadow: 0 1px 24px rgba(0, 0, 0, 0.04);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .nav-container {
@@ -43,15 +52,17 @@
             font-weight: 700;
             color: #2d3436;
             text-decoration: none;
+            letter-spacing: 0.5px;
         }
 
         .logo span {
             color: #0984e3;
+            font-weight: 300;
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 32px;
             list-style: none;
         }
 
@@ -60,56 +71,104 @@
             color: #636e72;
             font-size: 15px;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0984e3;
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: #0984e3;
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         /* ===== 关于页面主体 ===== */
         .container {
             max-width: 820px;
             margin: 30px auto;
-            padding: 40px 48px 50px;
+            padding: 44px 52px 52px;
             background: #ffffff;
-            border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
         }
 
         /* ===== 头部（头像 + 标题 + 副标题）居中 ===== */
         .about-header {
             text-align: center;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
+            margin-bottom: 36px;
+            padding-bottom: 28px;
             border-bottom: 2px solid #f0f2f5;
         }
 
         .about-header .avatar {
-            width: 120px;
-            height: 120px;
+            width: 128px;
+            height: 128px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 14px;
+            margin: 0 auto 18px;
             display: block;
-            box-shadow: 0 8px 28px rgba(9, 132, 227, 0.2);
-            border: 3px solid #fff;
+            box-shadow: 0 12px 40px rgba(9, 132, 227, 0.18);
+            border: 4px solid #fff;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .about-header .avatar:hover {
+            transform: scale(1.04);
+            box-shadow: 0 20px 56px rgba(9, 132, 227, 0.25);
         }
 
         .about-header h1 {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .about-header h1 .highlight {
+            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .about-header .subtitle {
             color: #636e72;
-            font-size: 16px;
+            font-size: 17px;
             margin-top: 4px;
+            letter-spacing: 4px;
         }
 
         /* ===== 内容区块 ===== */
         .about-section {
-            margin-bottom: 28px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .about-section:nth-child(1) { animation-delay: 0.08s; }
+        .about-section:nth-child(2) { animation-delay: 0.16s; }
+        .about-section:nth-child(3) { animation-delay: 0.24s; }
+        .about-section:nth-child(4) { animation-delay: 0.32s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .about-section h2 {
@@ -120,11 +179,13 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            letter-spacing: 1px;
         }
 
         .about-section p {
             color: #444;
             margin-bottom: 10px;
+            font-size: 16px;
         }
 
         .about-section ul {
@@ -136,6 +197,7 @@
             padding: 6px 0 6px 24px;
             position: relative;
             color: #444;
+            font-size: 16px;
         }
 
         .about-section ul li::before {
@@ -149,7 +211,7 @@
         /* ===== 社交链接 ===== */
         .social-links {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             flex-wrap: wrap;
             margin-top: 10px;
         }
@@ -158,41 +220,60 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 18px;
+            padding: 8px 22px;
             background: #f0f2f5;
-            border-radius: 20px;
+            border-radius: 24px;
             text-decoration: none;
             color: #2d3436;
             font-size: 14px;
-            transition: background 0.2s;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
         }
 
         .social-links a:hover {
             background: #0984e3;
             color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(9, 132, 227, 0.2);
+            border-color: #0984e3;
         }
 
         /* ===== 返回链接 ===== */
         .back-link {
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 12px;
             color: #0984e3;
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.25s;
+            font-size: 15px;
+        }
+
+        .back-link::before {
+            content: '← ';
+            transition: transform 0.25s;
+            display: inline-block;
         }
 
         .back-link:hover {
-            text-decoration: underline;
+            color: #0873c7;
+        }
+
+        .back-link:hover::before {
+            transform: translateX(-4px);
         }
 
         /* ===== 页脚 ===== */
         .footer {
             text-align: center;
-            padding: 30px 24px;
+            padding: 32px 24px 40px;
             color: #b2bec3;
             font-size: 14px;
+            border-top: 1px solid #e9ecef;
             max-width: 820px;
             margin: 0 auto;
+            letter-spacing: 4px;
         }
 
         /* ===== 响应式 ===== */
@@ -202,18 +283,102 @@
                 gap: 12px;
             }
             .nav-links {
-                gap: 18px;
+                gap: 24px;
             }
             .container {
-                padding: 24px 20px;
+                padding: 28px 22px 36px;
                 margin: 16px 12px;
             }
             .about-header h1 {
-                font-size: 22px;
+                font-size: 24px;
+            }
+            .about-header .subtitle {
+                font-size: 15px;
+                letter-spacing: 2px;
+            }
+            .about-header .avatar {
+                width: 100px;
+                height: 100px;
             }
             .social-links a {
-                padding: 6px 14px;
+                padding: 6px 16px;
                 font-size: 13px;
+            }
+            .about-section {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ===== 暗色模式 ===== */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0d1117;
+                color: #e6edf3;
+            }
+
+            .navbar {
+                background: rgba(22, 27, 34, 0.9);
+                border-bottom-color: rgba(255, 255, 255, 0.04);
+            }
+
+            .logo {
+                color: #e6edf3;
+            }
+
+            .nav-links a {
+                color: #8b949e;
+            }
+
+            .container {
+                background: #161b22;
+                border-color: rgba(255, 255, 255, 0.04);
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .about-header {
+                border-bottom-color: #21262d;
+            }
+
+            .about-header .subtitle {
+                color: #8b949e;
+            }
+
+            .about-section p {
+                color: #c9d1d9;
+            }
+
+            .about-section ul li {
+                color: #c9d1d9;
+            }
+
+            .about-section h2 {
+                color: #58a6ff;
+            }
+
+            .social-links a {
+                background: #21262d;
+                color: #c9d1d9;
+            }
+
+            .social-links a:hover {
+                background: #58a6ff;
+                color: #0d1117;
+                box-shadow: 0 8px 24px rgba(88, 166, 255, 0.2);
+            }
+
+            .footer {
+                border-top-color: #21262d;
+                color: #484f58;
+            }
+
+            .back-link {
+                color: #58a6ff;
+            }
+
+            .back-link:hover {
+                color: #79c0ff;
             }
         }
     </style>
@@ -237,7 +402,7 @@
         <!-- 头部：头像 + 标题 + 副标题，全部居中 -->
         <div class="about-header">
             <img src="/headpicture2.jpg" alt="玄心的头像" class="avatar">
-            <h1>你好，我是玄心</h1>
+            <h1>你好，我是 <span class="highlight">玄心</span></h1>
             <div class="subtitle">生活是海 · 妙笔作舟</div>
         </div>
 
@@ -282,13 +447,13 @@
             </div>
         </div>
 
-        <a href="/" class="back-link">← 返回首页</a>
+        <a href="/" class="back-link">返回首页</a>
 
     </div>
 
     <!-- ========== 页脚 ========== -->
     <footer class="footer">
-        玄之又玄·眾妙之門
+        玄之又玄 · 眾妙之門
     </footer>
 
 </body>
