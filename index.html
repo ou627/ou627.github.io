@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>玄心的个人博客</title>
+    <!-- ===== 字体：霞鹜文楷 ===== -->
+    <link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" rel="stylesheet">
     <style>
         /* ===== 全局重置 & 字体 ===== */
         * {
@@ -12,21 +14,41 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-family: "LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", sans-serif;
             background: #f5f7fa;
             color: #2d3436;
-            line-height: 1.7;
+            line-height: 1.8;
+        }
+
+        /* ===== 阅读进度条 ===== */
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0984e3, #74b9ff, #a29bfe);
+            width: 0%;
+            z-index: 999;
+            transition: width 0.15s ease;
+            box-shadow: 0 0 12px rgba(9, 132, 227, 0.3);
         }
 
         /* ===== 顶部导航 ===== */
         .navbar {
-            background: #ffffff;
-            padding: 18px 0;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 0;
+            box-shadow: 0 1px 24px rgba(0, 0, 0, 0.04);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .nav-container {
@@ -43,15 +65,17 @@
             font-weight: 700;
             color: #2d3436;
             text-decoration: none;
+            letter-spacing: 0.5px;
         }
 
         .logo span {
             color: #0984e3;
+            font-weight: 300;
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 32px;
             list-style: none;
         }
 
@@ -60,110 +84,191 @@
             color: #636e72;
             font-size: 15px;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0984e3;
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: #0984e3;
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:active {
+            color: #0984e3;
+        }
+
         /* ===== 英雄区（个人简介） ===== */
         .hero {
             text-align: center;
-            padding: 60px 24px 50px;
-            background: linear-gradient(135deg, #dfe6e9 0%, #ffffff 100%);
-            margin-bottom: 10px;
+            padding: 72px 24px 56px;
+            background: radial-gradient(ellipse at 50% 0%, #e8edf2 0%, #f5f7fa 70%);
+            margin-bottom: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景装饰光晕 */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(9, 132, 227, 0.04) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 128px;
+            height: 128px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 18px;
+            margin: 0 auto 20px;
             display: block;
-            box-shadow: 0 8px 28px rgba(9, 132, 227, 0.25);
-            border: 3px solid #fff;
+            box-shadow: 0 12px 40px rgba(9, 132, 227, 0.18);
+            border: 4px solid #fff;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .avatar:hover {
+            transform: scale(1.04);
+            box-shadow: 0 20px 56px rgba(9, 132, 227, 0.25);
         }
 
         .hero h1 {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 700;
             margin-bottom: 8px;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
             color: #636e72;
-            font-size: 17px;
+            font-size: 18px;
             max-width: 480px;
             margin: 0 auto;
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
         }
 
         /* ===== 日期显示 ===== */
         .date-display {
-            margin-top: 20px;
-            padding: 16px 28px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
+            margin-top: 24px;
+            padding: 14px 32px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
             display: inline-block;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .date-display:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
         }
 
         .date-display .date-main {
             font-size: 22px;
             font-weight: 600;
             color: #2d3436;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .date-display .date-sub {
-            font-size: 15px;
-            color: #636e72;
-            margin-top: 4px;
-        }
-
-        .date-display .date-sub span {
-            margin: 0 10px;
+            font-size: 14px;
             color: #b2bec3;
+            margin-top: 2px;
+            letter-spacing: 1px;
         }
 
         /* ===== 博客列表 ===== */
         .container {
             max-width: 820px;
             margin: 0 auto;
-            padding: 20px 24px 60px;
+            padding: 16px 24px 60px;
         }
 
         .section-title {
             font-size: 20px;
             font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
             border-bottom: 2px solid #e9ecef;
             display: flex;
             align-items: center;
             gap: 10px;
+            letter-spacing: 1px;
         }
 
         .section-title span {
             font-size: 22px;
         }
 
-        /* ---- 文章卡片 ---- */
+        /* ---- 文章卡片（高级版） ---- */
         .post-card {
             background: #ffffff;
-            padding: 24px 28px;
-            border-radius: 14px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border-left: 4px solid #0984e3;
+            padding: 28px 32px;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .post-card:nth-child(1) { animation-delay: 0.05s; }
+        .post-card:nth-child(2) { animation-delay: 0.12s; }
+        .post-card:nth-child(3) { animation-delay: 0.19s; }
+        .post-card:nth-child(4) { animation-delay: 0.26s; }
+        .post-card:nth-child(5) { animation-delay: 0.33s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .post-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.06);
+            border-color: rgba(9, 132, 227, 0.08);
         }
 
         .post-card .post-title {
@@ -175,45 +280,66 @@
         .post-card .post-title a {
             color: #2d3436;
             text-decoration: none;
+            transition: color 0.25s;
+            background: linear-gradient(to right, #0984e3, #0984e3);
+            background-size: 0 2px;
+            background-repeat: no-repeat;
+            background-position: left bottom;
         }
 
         .post-card .post-title a:hover {
             color: #0984e3;
+            background-size: 100% 2px;
         }
 
         .post-card .post-meta {
             font-size: 14px;
             color: #b2bec3;
             margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
         .post-card .post-excerpt {
             color: #636e72;
             font-size: 15px;
+            line-height: 1.8;
         }
 
         .post-card .read-more {
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 12px;
             font-size: 14px;
             color: #0984e3;
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.25s;
+            position: relative;
+        }
+
+        .post-card .read-more::after {
+            content: ' →';
+            transition: transform 0.25s;
+            display: inline-block;
         }
 
         .post-card .read-more:hover {
-            text-decoration: underline;
+            color: #0873c7;
+        }
+
+        .post-card .read-more:hover::after {
+            transform: translateX(4px);
         }
 
         /* ===== 页脚 ===== */
         .footer {
             text-align: center;
-            padding: 30px 24px;
+            padding: 32px 24px 40px;
             color: #b2bec3;
             font-size: 14px;
             border-top: 1px solid #e9ecef;
             max-width: 820px;
             margin: 0 auto;
+            letter-spacing: 4px;
         }
 
         /* ===== 响应式 ===== */
@@ -223,13 +349,24 @@
                 gap: 12px;
             }
             .nav-links {
-                gap: 18px;
+                gap: 24px;
+            }
+            .hero {
+                padding: 48px 20px 40px;
             }
             .hero h1 {
-                font-size: 24px;
+                font-size: 26px;
+            }
+            .hero p {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+            .avatar {
+                width: 100px;
+                height: 100px;
             }
             .post-card {
-                padding: 18px 20px;
+                padding: 20px 22px;
             }
             .date-display .date-main {
                 font-size: 18px;
@@ -237,20 +374,103 @@
             .date-display .date-sub {
                 font-size: 13px;
             }
-            .date-display .date-sub span {
-                margin: 0 6px;
+            .post-card {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ===== 暗色模式 ===== */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #0d1117;
+                color: #e6edf3;
+            }
+
+            .navbar {
+                background: rgba(22, 27, 34, 0.9);
+                border-bottom-color: rgba(255, 255, 255, 0.04);
+            }
+
+            .logo {
+                color: #e6edf3;
+            }
+
+            .nav-links a {
+                color: #8b949e;
+            }
+
+            .hero {
+                background: radial-gradient(ellipse at 50% 0%, #161b22 0%, #0d1117 70%);
+            }
+
+            .hero::before {
+                background: radial-gradient(circle, rgba(9, 132, 227, 0.08) 0%, transparent 70%);
+            }
+
+            .hero p {
+                color: #8b949e;
+            }
+
+            .post-card {
+                background: #161b22;
+                border-color: rgba(255, 255, 255, 0.04);
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .post-card .post-title a {
+                color: #e6edf3;
+            }
+
+            .post-card .post-excerpt {
+                color: #8b949e;
+            }
+
+            .post-card .post-meta {
+                color: #484f58;
+            }
+
+            .section-title {
+                border-bottom-color: #21262d;
+                color: #e6edf3;
+            }
+
+            .date-display {
+                background: rgba(22, 27, 34, 0.8);
+                border-color: rgba(255, 255, 255, 0.04);
+            }
+
+            .date-display .date-main {
+                color: #e6edf3;
+            }
+
+            .date-display .date-sub {
+                color: #484f58;
+            }
+
+            .footer {
+                border-top-color: #21262d;
+                color: #484f58;
+            }
+
+            #progressBar {
+                background: linear-gradient(90deg, #58a6ff, #79c0ff, #a29bfe);
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ========== 阅读进度条 ========== -->
+    <div id="progressBar"></div>
+
     <!-- ========== 导航栏 ========== -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">玄<span>心</span></a>
             <ul class="nav-links">
-                <li><a href="/">首页</a></li>
+                <li><a href="/" style="color:#0984e3;">首页</a></li>
                 <li><a href="/about.html">关于</a></li>
             </ul>
         </div>
@@ -259,7 +479,7 @@
     <!-- ========== 英雄区 ========== -->
     <section class="hero">
         <img src="/headpicture2.jpg" alt="玄心的头像" class="avatar">
-        <h1>你好，我是玄心</h1>
+        <h1>你好，我是 <span class="highlight">玄心</span></h1>
         <p>生活是海 · 妙笔作舟</p>
 
         <!-- ===== 日期显示区域 ===== -->
@@ -286,16 +506,43 @@
             <p class="post-excerpt">
                 欢迎来到我的博客！这篇文章记录了我搭建这个网站的过程，以及为什么要开始写博客...
             </p>
-            <a href="/posts/2026-08-12-第一篇博客.html" class="read-more">阅读全文 →</a>
+            <a href="/posts/2026-08-12-第一篇博客.html" class="read-more">阅读全文</a>
         </article>
+
+        <!-- 文章卡片 2 -->
+        <article class="post-card">
+            <h2 class="post-title">
+                <a href="/posts/2026-08-10-第二篇博客.html">GitHub Pages 搭建指南</a>
+            </h2>
+            <div class="post-meta">📅 2026年8月10日</div>
+            <p class="post-excerpt">
+                从零开始，手把手教你用 GitHub Pages 搭建一个完全免费的个人博客网站...
+            </p>
+            <a href="/posts/2026-08-10-第二篇博客.html" class="read-more">阅读全文</a>
+        </article>
+
+        <!-- 文章卡片 3 -->
+        <article class="post-card">
+            <h2 class="post-title">
+                <a href="/posts/2026-08-08-第三篇博客.html">前端学习路线分享</a>
+            </h2>
+            <div class="post-meta">📅 2026年8月8日</div>
+            <p class="post-excerpt">
+                分享我的经验和学习心得，希望能给同样在路上的你一些帮助...
+            </p>
+            <a href="/posts/2026-08-08-第三篇博客.html" class="read-more">阅读全文</a>
+        </article>
+
+    </div>
 
     <!-- ========== 页脚 ========== -->
     <footer class="footer">
-        玄之又玄·眾妙之門
+        玄之又玄 · 眾妙之門
     </footer>
 
-    <!-- ========== JavaScript（日期显示） ========== -->
+    <!-- ========== JavaScript ========== -->
     <script>
+        // ===== 日期显示 =====
         var weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
         function updateDate() {
@@ -314,6 +561,14 @@
 
         updateDate();
         setInterval(updateDate, 10000);
+
+        // ===== 阅读进度条 =====
+        window.addEventListener('scroll', function() {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
     </script>
 
 </body>
